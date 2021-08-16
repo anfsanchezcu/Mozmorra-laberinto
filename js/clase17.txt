@@ -1,0 +1,108 @@
+var canvas;
+var ftp = 50;
+var ctx;
+var imgBom;
+
+
+function inicializacion(){
+    canvas = document.getElementById('canvas');
+    ctx = canvas.getContext('2d');
+    imgBom = new Image();
+    imgBom.src ='img/bom.jpeg';
+
+    setInterval(()=>main(),1000/ftp);
+}
+
+function borrarCanvas(){
+    canvas.width = 800;
+    canvas.height = 400;
+}
+
+var personaje = function(x,y){
+    this.x =x;
+    this.y =y;
+    this.right =true;
+
+    this.dibuja =function(){
+        ctx.fillStyle = '#fff000';
+        ctx.fillRect(this.x,this.y,50,50);//posicion x,y , ancho y alto
+    }
+    this.rigth = function(a){
+        this.x = this.x+a;
+        this.x>=800? (this.right=false):(this.right=true)
+    }
+    this.left = function(a){
+        this.x = this.x-a;
+        this.x<=0? (this.right=true):(this.right=false)
+    }
+    this.move = function(a){
+        if(this.right == true && this.x <800){
+            this.rigth(a);
+        }else if(x>0){ 
+            this.left(a);
+        }
+    }
+}
+var protagonista = function(x,y){
+    this.x = x;
+    this.y = y;
+    this.velocidad =5;
+    this.dibuja = function(){
+         ctx.drawImage(imgBom,this.x,this.y);//parametros: objetoimagen y cordenadas
+    }
+    this.marcador = function(){
+        ctx.font = '30px impact';
+        ctx.fillStyle ='#555555';
+        ctx.fillText('x:'+this.x+'|y:'+this.y,650,390);//parametros: texto, pocision
+    }
+    this.up = function(){
+        this.y -=this.velocidad;
+    }
+    this.down = function(){
+        this.y += this.velocidad;
+    }
+    this.left = function(){
+        this.x-= this.velocidad;
+    }
+    this.right = function(){
+        this.x+=this.velocidad;
+    }
+
+
+}
+
+
+document.addEventListener('keydown',function(e){
+    
+    if(e.keyCode == 37){
+        bomber.left();
+    }else if(e.keyCode == 38){
+        bomber.up();
+    }else if(e.keyCode ==39){
+        bomber.right();
+    }else if(e.keyCode == 40){
+        bomber.down();
+    }
+});
+
+
+var per1 = new personaje(10,0);
+var per2 = new personaje(150,10);
+var per3 = new personaje(80,0);
+
+var bomber =  new protagonista(25,25);
+
+
+function main(){
+    borrarCanvas();
+    per2.dibuja();
+    per1.dibuja();
+    per3.dibuja();
+    bomber.dibuja();
+
+    bomber.marcador();
+    per1.move(5);
+    per2.move(1);
+    per3.move(20);
+
+}

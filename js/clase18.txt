@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game O</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+</head>
+
+
+
+<body onload = 'inicializacion()' >
+    <button onclick="compra(1)">Espada</button>
+    <button onclick="compra(2)">Flechas</button>
+    <hr>
+    <label for="delete">Eliminar ultima compra</label>
+    <button onclick="deleteC()" id="delete">Eliminar</button>
+
+    <button onclick="ver()">Carrito</button>
+    <button onclick="deleteC2()">Eliminar</button>
+    
+    <script src="js/keypress.js"></script>
+    <script src="js/juego.js"></script>
+</body>
+
+</html>
+
+
+
+-------------------------------JS----------------------
+var lista = ['a','b','c'];
+var mochila = ['espada','posion','daga','armadura', 'flechas'];
+var compras=[];
+//console.log(lista[0]);
+
+function inicializacion(){
+
+}
+function main(){
+
+}
+function compra(objeto){
+    if(objeto == '1'){
+        compras.push("Espada");
+    }else{
+        compras.push("Flechas")
+    }
+    console.log(compras)
+}
+function deleteC(){
+    compras.pop();
+    console.log(compras)
+}
+function deleteC2(){
+    var pr
+    compras.splice(posicion,1);
+}
+function ver(){
+    console.log(compras);
+}

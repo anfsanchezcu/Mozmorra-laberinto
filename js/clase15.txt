@@ -1,0 +1,17 @@
+var personaje = function(x,y, nombre){
+    this.x =x;
+    this.y=y;
+    this.nombre =nombre;
+
+    this.abajo = function(){
+        this.y=y+10;
+    }
+    this.hablar = function(){
+        console.log("hola me llamo " +this.nombre);
+    }
+}
+
+var personaje1= new personaje(100,100,"Fernando");
+var personaje2 = new personaje(200,200,"Felipe");
+
+personaje1.x = 556;

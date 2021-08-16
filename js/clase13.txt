@@ -1,0 +1,15 @@
+var config_teclado = {prevent_repeat : true}; 
+var evento_teclado = new window.keypress.Listener(this,config_teclado);
+
+function pulsaA(){
+    console.log("pulso A");
+}
+function pulsaAB(){
+    console.log("pulso AB");
+}
+function combo(){
+    console.log("ataque combo");
+}
+evento_teclado.simple_combo('a',pulsaA);//simple_combo seguimiento a una tecla o varias al tiempo
+evento_teclado.simple_combo('a b',pulsaAB);//simple_combo seguimiento a una tecla
+evento_teclado.sequence_combo('up down a',combo); //sequence_combo para codigos secretos(sucesion de teclas para combos)

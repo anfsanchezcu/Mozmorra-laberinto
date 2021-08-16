@@ -1,0 +1,18 @@
+var miCanvas;
+
+function inicializar( ){
+    miCanvas = document.getElementById('canvas');
+    miCanvas.addEventListener('mousedown',clicRaton,false);
+    miCanvas.addEventListener('mouseup',upRaton,false);
+    miCanvas.addEventListener('mousemove',positionRaton,false);
+}
+function clicRaton(e){
+    console.log("ratin pulsado");
+}
+function upRaton(e){
+    console.log("raton no pulsado");
+}
+function positionRaton(e){
+    console.log(e.pageX);
+    console.log(e.pageY)
+}

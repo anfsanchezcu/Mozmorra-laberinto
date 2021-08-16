@@ -1,0 +1,61 @@
+var canvas;
+var ftp = 50;
+var ctx;
+
+
+function inicializacion(){
+    canvas = document.getElementById('canvas');
+    ctx = canvas.getContext('2d');
+
+    setInterval(()=>main(),1000/ftp);
+}
+
+function borrarCanvas(){
+    canvas.width = 800;
+    canvas.height = 400;
+}
+
+var personaje = function(x,y){
+    this.x =x;
+    this.y =y;
+    this.right =true;
+
+    this.dibuja =function(){
+        ctx.fillstyle = '#fff000';
+        ctx.fillRect(this.x,this.y,50,50);//posicion x,y , ancho y alto
+    }
+    this.rigth = function(a){
+        this.x = this.x+a;
+    }
+    this.left = function(a){
+        this.x = this.x-a;
+    }
+    this.move = function(a){
+        if(this.right == true && this.x <500){
+            this.rigth(a);
+        }else if(x>0){ 
+            this.right = false;
+            this.left(a);
+        }
+    }
+}
+
+
+
+
+
+var per1 = new personaje(10,0);
+var per2 = new personaje(150,10);
+var per3 = new personaje(80,0);
+
+function main(){
+    borrarCanvas()
+    per2.dibuja();
+    per1.dibuja();
+    per3.dibuja();
+
+    per1.move(5);
+    per2.move(1);
+    per3.move(20);
+
+}
