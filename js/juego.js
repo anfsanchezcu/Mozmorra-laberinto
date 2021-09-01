@@ -2,11 +2,28 @@ var canvas;
 var fps=40;
 var ctx;
 var tileMap = new Image();
+var musica = new Howl({
+    src:['music/01.mp3'],
+    loop:true
+})
+var sonidoM = new Howl({
+    src:['sounds/efecto1.wav'],
+    loop:false
+})
+var sonidoP = new Howl({
+    src:['sounds/efecto2.wav'],
+    loop:false
+})
+var sonidoK= new Howl({
+    src:['sounds/efecto3.wav'],
+    loop:false
+})
 
 var conejo;
 var enemigos = [];
 
-
+var anchoE=20;
+var altoE=10;
 
 var anchoF = 25;
 var altoF=25;
@@ -16,8 +33,8 @@ var camino='#3b3735';
 var llave='#bceb00';
 var puerta ="#2f346e"
 var win ="#9534eb";
-
-
+var camara;
+var camara2;
 var escenario = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,2,2,0,0,2,2,2,2,2,2,2,2,2,2,2,2,2,0,0],
@@ -30,6 +47,23 @@ var escenario = [
     [0,0,2,2,0,0,0,0,2,2,2,2,0,2,2,2,2,1,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 ];
+var objCamara =function(x,y,sizeX,sizeY,posX,posY){
+    this.x= x;
+    this.y= y;
+    this.sizeX =sizeX;
+    this.sizeY = sizeY;
+    this.posX=posX;
+    this.posY =posY;
+    this.dibuja= function(){
+        for(var i =this.y; i<(this.sizeY+this.y) ;i++){
+            for(var j=this.x; j<(sizeX+this.x) ; j++){
+                var cuadro=escenario[i][j];
+                ctx.drawImage(tileMap,cuadro*32,0,32,32,(j-this.x+posX)*anchoF,altoF*(i-this.y+posY),anchoF,altoF)
+    
+            }
+        }
+    }
+}
 
 
 
@@ -54,6 +88,7 @@ var corredor = function(x,y){
     this.getKey= function(){
         //console.log('x:'+this.x+' y:'+this.y+' escenario:'+escenario[y][x]);
         if(escenario[this.y][this.x]==3){
+            sonidoK.play();
             escenario[this.y][this.x]=2;
             this.llave = true;
         }
@@ -67,6 +102,7 @@ var corredor = function(x,y){
     }
     this.win = function(){
         if(escenario[this.y][this.x]==1 && this.llave ==true){
+            sonidoK.play();
             escenario[6][18]=5;
             this.llave=false;
             this.x=1;
@@ -81,6 +117,7 @@ var corredor = function(x,y){
         }
     }
     this.muere = function(){
+        sonidoM.play();
         this.x =1;
         this.y =1;
         escenario[6][18]=3;
@@ -191,7 +228,9 @@ function inicializacion(){
     enemigos.push(new enemigo(15,2));
     enemigos.push(new enemigo(10,9));
 
-
+    camara = new objCamara(2,2,5,5,1,1);
+    camara2 = new objCamara(5,5,4,4,10,5);
+    musica.play();
 
     setInterval(()=>main(), 1000/fps);
     document.addEventListener('keydown',function(e){
@@ -207,7 +246,9 @@ function inicializacion(){
 function main(){
     
    borrarCanvas();
+   //camara.dibuja();
    dibujarEscenario();
+   //camara2.dibuja();
    conejo.dibujar();
   
    for(var i =0 ; i<3;i++){
